@@ -28,8 +28,7 @@ Suggested file naming is to append the filename with `_spec`, like `mytests_spec
     jasmine-node 
 
 ## Overview of tests to perform (so far)
-    //
-    /* from: https:    //github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementsTests.py */
+    /* from: https://github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementsTests.py */
     //11 pregen valid statements 
 
 ### PUT
@@ -57,14 +56,27 @@ Suggested file naming is to append the filename with `_spec`, like `mytests_spec
 
 ### GET
     // single query id confirm id returned and content-length same 200
-    // no params return all with default limit of 10 (test will be less than though)
+    // no params return all with default limit of 10 (statement count will be less)
+	// no params return all with default limit of 10 (statement count will be more)
     // single query id no existing id found 404
     // single query all fields returned accuratly 204 (many)
     // single query void by voidedSatementId 204
     // single query void by statementId 404
 
 ### GET Complex query
-    /* https:    //github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementFilterTests.py */
+    /* https://github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementFilterTests.py */
+	// limit below total return limit count statements 200
+	// filter by verb id
+	// filter by agent "id" related_agent check if in both statment and substatement (anywhere the agent can be)
+	// filter agent "id" in group
+	// filter since and until
+	// filter agent "id" related_agent until
+	// filter registration id and verb
+	// filter activity
+	// filter activity related
+	// filter with format(s)
+	// filter attachments
 
+### TODO
     // Re-Run above with request type in query string
-    // Todo Auth tests with permissions of POST/PUT/GET
+    // Auth tests with permissions of POST/PUT/GET
