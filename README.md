@@ -25,4 +25,46 @@ Suggested file naming is to append the filename with `_spec`, like `mytests_spec
 ### Run it from the CLI
 
     cd your/project
-    jasmine-node .
+    jasmine-node 
+
+## Overview of tests to perform (so far)
+    //
+    /* from: https:    //github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementsTests.py */
+    //11 pregen valid statements 
+
+### PUT
+    // header format test
+    // add a variety of statement types and check they cleared 204
+    // add statement with substatement 204 (use statement and sub statement for GET Test)
+    // invalid no statement in put w/ id 400
+    // valid satement no put id 400
+    // valid different satements same id confilict 409
+    // valid same statement and id as existing no conflict 204
+
+### POST
+    // header format test
+    // invalid fields as 400 (many)
+    // valid statement 200 and return id (use same statment for GET Tests)
+    // invalid not array field types 400 (many)
+    // invalid time types 400
+    // invalid ref id to non found statment 404
+    // valid multiple statements 200 and return ids (use same statment for GET Tests)
+    // valid statement & id as if PUT 204
+    // valid statment with group actor 200 return id
+    // invalid statement in mulitiple don't save all 400 (requires GET to confirm not saved)
+    // void statment (GET confirm voided)
+    // mutlipart attachment test (todo)
+
+### GET
+    // single query id confirm id returned and content-length same 200
+    // no params return all with default limit of 10 (test will be less than though)
+    // single query id no existing id found 404
+    // single query all fields returned accuratly 204 (many)
+    // single query void by voidedSatementId 204
+    // single query void by statementId 404
+
+### GET Complex query
+    /* https:    //github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementFilterTests.py */
+
+    // Re-Run above with request type in query string
+    // Todo Auth tests with permissions of POST/PUT/GET
