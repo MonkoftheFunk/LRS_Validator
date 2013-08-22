@@ -51,6 +51,25 @@ var stmt2 = {
         }
     }
 };
+//substatement of 2 to verify against
+var stmt2a = {
+    "actor": {
+        "objectType": "Agent",
+        "mbox": "mailto:learner@example.adlnet.gov"
+    },
+    "verb" : {
+        "id": "http://adlnet.gov/expapi/verbs/experienced",
+        "display": {
+            "en-US": "experienced"
+        }
+    },
+    "object": {
+        "id": "http://adlnet.gov/xapi/",
+        "definition": {
+            "type": "http://adlnet.gov/expapi/activities/link"
+        }
+    }
+};
 var guid3 = "3";
 
 var guid4, guid5, guid6, guid7;
@@ -145,6 +164,8 @@ var err_stmt1 = {
         }
     }
 };
+
+var guid8="8";
 var stmt8 = {
     "actor": {
         "objectType": "Agent",
@@ -181,6 +202,26 @@ var stmt9 = {
         }
     }
 }; //share same verb
+
+var guid10="10";
+var stmt10 = {
+    "actor": {
+        "objectType": "Agent",
+        "mbox": "mailto:learner@example.adlnet.gov"
+    },
+    "verb" : {
+        "id": "http://adlnet.gov/expapi/verbs/experienced",
+        "display": {
+            "en-US": "experienced"
+        }
+    },
+    "object": {
+        "id": "http://adlnet.gov/xapi/",
+        "definition": {
+            "type": "http://adlnet.gov/expapi/activities/link"
+        }
+    }
+};
 
 var void_guid1;
 var voided_guid1 = "v1";
@@ -287,11 +328,17 @@ frisby.create('POST - Valid multiple statements return id in array')
 	.afterJSON(function(ids) {
 		guid5 = ids[0];
 		guid6 = ids[1];
-		guid5 = ids[2];
+		guid7 = ids[2];
 	})
 	.toss();
 
-	//todo post as put
+frisby.create('POST - Valid Statement w/ id')
+  .post(API_DOMAIN+'?statementId='+guid10,
+	stmt10)
+    .expectStatus(204)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+	
 //get query stmt8 & stmt9 to confirm didn't save 	
 var multi = [stmt8,err_stmt1,stmt9];
 frisby.create("POST - Invalid statement in mulitiple don't save all")
@@ -322,15 +369,56 @@ frisby.create('PUT - Statement to be Voided')
 	
 /* GET */
 
-//get query stmt8 & stmt9 to confirm didn't save 	
+//get query stmt8 & stmt9 to confirm didn't save
+frisby.create("GET - Statement that shouldn't have been saved")
+  .get(API_DOMAIN+'?statementId='+guid8)
+    .expectStatus(404)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+	
 //get query voided_guid1 to confirm void
+frisby.create("GET - Voided Statement by statementId")
+  .get(API_DOMAIN+'?statementId='+voided_guid1)
+    .expectStatus(404)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+	
+frisby.create("GET - Voided Statement by statementId")
+  .get(API_DOMAIN+'?statementId='+voided_guid1)
+    .expectStatus(404)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+	
+frisby.create("GET - Voided Statement by voidedStatementId")
+  .get(API_DOMAIN+'?voidedSatementId='+voided_guid1)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSON(voided_stmt1)
+	.toss();
 
-// single query id confirm id returned and content-length same 200
-// no params return all with default limit of 10 (statement count will be less)
-// no params return all with default limit of 10 (statement count will be more)
-// single query id no existing id found 404
+frisby.create("GET - Existing Statement by PUT statementId")
+  .get(API_DOMAIN+'?statementId='+guid1)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSON(stmt1)
+	.toss();
+
+frisby.create("GET - Existing Statement by POST statementId")
+  .get(API_DOMAIN+'?statementId='+guid5)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSON(stmt5)
+	.toss();	
+
+frisby.create("GET - Existing Sub Statement")
+  .get(API_DOMAIN+'?statementId='+ssguid2)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSON(stmt2a)
+	.toss();
+	
 // single query all fields returned accuratly 204 (many)
-// single query void by voidedSatementId 204
-// single query void by statementId 404
 
 /* GET Complex query */
+// no params return all with default limit of 10 (statement count will be less)
+// no params return all with default limit of 10 (statement count will be more)
