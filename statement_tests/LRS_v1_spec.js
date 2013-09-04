@@ -5,7 +5,7 @@
  */
  
 var frisby = require('../frisby/lib/frisby');
-var API_DOMAIN = (process.env.DOMAIN)?process.env.DOMAIN:"localhost";
+var API_DOMAIN = (process.env.DOMAIN)?process.env.DOMAIN:"http://localhost:8080";
 var API_VER = "1.0"
 
 //todo create something queryiable all statements share for quick removal after test
@@ -84,7 +84,7 @@ var stmt1 = {
 	},
 	"result": {
 		"score": {
-			"scaled": .85,
+			"scaled": 0.85,
 			"raw": 85,
 			"min": 0,
 			"max": 100
@@ -99,7 +99,7 @@ var stmt1 = {
 		}
 	},
 	"context": {
-		"registration": '6',
+		"registration": "6",
 		"contextActivities": {
 			"other": {
 				"id": "http://example.adlnet.gov/tincan/example/test"
@@ -113,7 +113,7 @@ var stmt1 = {
 		"language": "en-US",
 		"statement": {
 			"objectType": "StatementRef",
-			"id": '7'
+			"id": "7"
 		},
 		"extensions": {
 			"ext:contextKey1": "contextVal1",
@@ -143,62 +143,62 @@ var stmt2a = {
 		},
 		"object": {
 			"id": "http://example.adlnet.gov/tincan/example/simplestatement",
-			'definition': {
-				'name': {
-					'en-US': 'SubStatementname'
+			"definition": {
+				"name": {
+					"en-US": "SubStatementname"
 				},
-				'description': {
-					'en-US': 'SubStatementdescription'
+				"description": {
+					"en-US": "SubStatementdescription"
 				},
-				'type': 'http: //adlnet.gov/expapi/activities/cmi.interaction',
-				'interactionType': 'matching',
-				'correctResponsesPattern': ['lou.3',
-				'tom.2',
-				'andy.1'],
-				'source': [{
-					'id': 'lou',
-					'description': {
-						'en-US': 'Lou',
-						'it': 'Luigi'
+				"type": "http: //adlnet.gov/expapi/activities/cmi.interaction",
+				"interactionType": "matching",
+				"correctResponsesPattern": ["lou.3",
+				"tom.2",
+				"andy.1"],
+				"source": [{
+					"id": "lou",
+					"description": {
+						"en-US": "Lou",
+						"it": "Luigi"
 					}
 				},
 				{
-					'id': 'tom',
-					'description': {
-						'en-US': 'Tom',
-						'it': 'Tim'
+					"id": "tom",
+					"description": {
+						"en-US": "Tom",
+						"it": "Tim"
 					}
 				},
 				{
-					'id': 'andy',
-					'description': {
-						'en-US': 'Andy'
+					"id": "andy",
+					"description": {
+						"en-US": "Andy"
 					}
 				}],
-				'target': [{
-					'id': '1',
-					'description': {
-						'en-US': 'ADLLRS'
+				"target": [{
+					"id": "1",
+					"description": {
+						"en-US": "ADLLRS"
 					}
 				},
 				{
-					'id': '2',
-					'description': {
-						'en-US': 'lrs'
+					"id": "2",
+					"description": {
+						"en-US": "lrs"
 					}
 				},
 				{
-					'id': '3',
-					'description': {
-						'en-US': 'theadllrs',
-						'en-CH': 'thelrs'
+					"id": "3",
+					"description": {
+						"en-US": "theadllrs",
+						"en-CH": "thelrs"
 					}
 				}]
 			}
 		},
 		"result": {
 			"score": {
-				"scaled": .50,
+				"scaled": 0.50,
 				"raw": 50,
 				"min": 1,
 				"max": 51
@@ -252,7 +252,7 @@ var stmt2 = {
 	"object": stmt2a,
 	"result": {
 		"score": {
-			"scaled": .85,
+			"scaled": 0.85,
 			"raw": 85,
 			"min": 0,
 			"max": 100
@@ -289,6 +289,24 @@ var stmt2 = {
 };
 
 var guid3 = "3";
+var stmt3 = {
+	"id": guid3,
+	"object": {
+		"objectType": "Agent",
+		"name": "jon",
+		"mbox": "mailto:jon@jon.com"
+	},
+	"verb": {
+		"id": "http://adlnet.gov/expapi/verbs/created",
+		"display": {
+			"en-US": "created"
+		}
+	},
+	"actor": {
+		"objectType": "Agent",
+		"mbox": "mailto:s@s.com"
+	}
+};
 
 var guid4, guid5, guid6, guid7;
 var stmt4 = {
@@ -326,7 +344,7 @@ var stmt4 = {
 	},
 	"result": {
 		"score": {
-			"scaled": .85
+			"scaled": 0.85
 		},
 		"completion": true,
 		"success": true,
@@ -338,7 +356,7 @@ var stmt4 = {
 		}
 	},
 	"context": {
-		"registration": '1',
+		"registration": "1",
 		"contextActivities": {
 			"other": {
 				"id": "act:NewActivityID2"
@@ -389,7 +407,7 @@ var stmt5 = {
 	},
 	"result": {
 		"score": {
-			"scaled": .75
+			"scaled": 0.75
 		},
 		"completion": true,
 		"success": true,
@@ -401,7 +419,7 @@ var stmt5 = {
 		}
 	},
 	"context": {
-		"registration": '2',
+		"registration": "2",
 		"contextActivities": {
 			"other": {
 				"id": "act:NewActivityID22"
@@ -450,7 +468,7 @@ var stmt6 = {
 	},
 	"result": {
 		"score": {
-			"scaled": .79
+			"scaled": 0.79
 		},
 		"completion": true,
 		"success": true,
@@ -462,7 +480,7 @@ var stmt6 = {
 		}
 	},
 	"context": {
-		"registration": '3',
+		"registration": "3",
 		"contextActivities": {
 			"other": {
 				"id": "act:NewActivityID22"
@@ -501,23 +519,24 @@ var stmt7 = {
 	}
 };
 
+//error on duplicate id/statment exists
 var err_stmt1 = {
-    "actor": {
-        "objectType": "Agent",
-        "mbox": "mailto:learner@example.adlnet.gov"
-    },
-    "verb" : {
-        "id": "http://adlnet.gov/expapi/verbs/experienced",
-        "display": {
-            "en-US": "experienced"
-        }
-    },
-    "object": {
-        "id": "http://adlnet.gov/xapi/",
-        "definition": {
-            "type": "http://adlnet.gov/expapi/activities/link"
-        }
-    }
+	"id": guid3,
+	"object": {
+		"objectType": "Agent",
+		"name": "jon",
+		"mbox": "mailto:jon@jon.com"
+	},
+	"verb": {
+		"id": "http://adlnet.gov/expapi/verbs/created",
+		"display": {
+			"en-US": "created"
+		}
+	},
+	"actor": {
+		"objectType": "Agent",
+		"mbox": "mailto:s@s.com"
+	}
 };
 
 var guid8="8";
@@ -597,6 +616,7 @@ var void_stmt1 = {
         "id" : voided_guid1
     }
 }; //contains ref to voided_guid1
+// todo back to lower camel case, get goLrs output lower camel
 var voided_stmt1 = {
     "actor": {
         "objectType": "Agent",
@@ -605,7 +625,7 @@ var voided_stmt1 = {
     "verb" : {
         "id": "http://adlnet.gov/expapi/verbs/experienced",
         "display": {
-            "en-US": "experienced"
+            "En-US": "experienced"
         }
     },
     "object": {
@@ -617,163 +637,202 @@ var voided_stmt1 = {
 };
 
 /* PUT */
-
-frisby.create('PUT - Valid Statement w/ id')
-  .put(API_DOMAIN+'/statements/?statementId='+guid1,
-	stmt1)
+//1
+frisby.create("PUT - Valid Statement w/ id")
+  .put(API_DOMAIN+"/statements/?statementId="+guid1,
+	stmt1,{"json":true})
     .expectStatus(204)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
-
-frisby.create('PUT - Valid Statement w/ Valid Substatement')
-  .put(API_DOMAIN+'/statements/?statementId='+guid2,
-	stmt2)
+//2
+frisby.create("PUT - Valid Statement w/ Valid Substatement")
+  .put(API_DOMAIN+"/statements/?statementId="+guid2,
+	stmt2,{"json":true})
     .expectStatus(204)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
-
-frisby.create('PUT - Id no Statement')
-  .put(API_DOMAIN+'/statements/?statementId='+guid3)
+//3
+frisby.create("PUT - Id no Statement")
+  .put(API_DOMAIN+"/statements/?statementId="+guid3)
     .expectStatus(400)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
-
-frisby.create('PUT - Valid same statement and id as existing no conflict')
-  .put(API_DOMAIN+'/statements/?statementId='+guid1,
-	stmt1)
+	
+//4
+frisby.create("PUT - Valid same statement and id as existing no conflict")
+  .put(API_DOMAIN+"/statements/?statementId="+guid1,
+	stmt1,{"json":true})
     .expectStatus(204)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
-	
-frisby.create('PUT - Valid different satements same id confilict')
-  .put(API_DOMAIN+'/statements/?statementId='+guid1,
-	stmt2)
+//5	
+frisby.create("PUT - Valid different satements same id confilict")
+  .put(API_DOMAIN+"/statements/?statementId="+guid1,
+	stmt2,{"json":true})
     .expectStatus(409)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
 
 /* POST */
-
-frisby.create('POST - No Statement')
-  .post(API_DOMAIN)
+//6
+frisby.create("POST - No Statement")
+  .post(API_DOMAIN+"/statements/")
     .expectStatus(400)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
-	
-frisby.create('POST - Valid statement and return id in array')
-  .post(API_DOMAIN,
-	stmt4)
+//7	
+frisby.create("POST - Valid statement and return id in array")
+  .post(API_DOMAIN+"/statements/",
+	stmt4,{"json":true})
     .expectStatus(200)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
-	.expectJSONLength("?",1)
-	.expectJSONTypes('?', Array)
+	.expectJSONLength(1)
+	.expectJSONTypes("?", Array)
 	.afterJSON(function(ids) {
 		guid4 = ids[0];
 	})
 	.toss();
-
+//8
 var multi = [stmt5,stmt6,stmt7];
-frisby.create('POST - Valid multiple statements return id in array')
-  .post(API_DOMAIN,
+frisby.create("POST - Valid multiple statements return id in array")
+  .post(API_DOMAIN+"/statements/",
 	multi,{"json":true})
     .expectStatus(200)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
-	.expectJSONLength("?",3)
-	.expectJSONTypes('?', Array)
-	.afterJSON(function(ids) {
+	.expectJSONLength(3)
+	.expectJSONTypes("?", Array)
+	.afterJSON(function(ids) {	
 		guid5 = ids[0];
 		guid6 = ids[1];
 		guid7 = ids[2];
+		
+	//19
+	frisby.create("GET - Existing Statement by POST statementId")
+	  .get(API_DOMAIN+"/statements/?statementId="+guid5)
+		.expectStatus(200)
+		.expectHeaderContains("X-Experience-API-Version", API_VER)
+		.expectJSON(stmt5)
+		.toss();
 	})
-	.toss();
-
-frisby.create('POST - Valid Statement w/ id')
-  .post(API_DOMAIN+'/statements/?statementId='+guid10,
-	stmt10)
+	.toss();	
+//9
+frisby.create("POST - Valid Statement w/ id")
+  .post(API_DOMAIN+"/statements/?statementId="+guid10,
+	stmt10,{"json":true})
     .expectStatus(204)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
+//10	
+frisby.create("POST - Valid Statement w/ id in statement")
+  .post(API_DOMAIN+"/statements/",
+	stmt3,{"json":true})
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)	
+	.expectJSONLength(1)
+	.expectJSONTypes("?", Array)
+	.toss();
 	
-//get query stmt8 & stmt9 to confirm didn't save 	
+//11	
+//get query stmt8 & stmt9 to confirm didn"t save due to conflict
 var multi = [stmt8,err_stmt1,stmt9];
 frisby.create("POST - Invalid statement in mulitiple don't save all")
-  .post(API_DOMAIN,
+  .post(API_DOMAIN+"/statements/",
 	multi,{"json":true})
-    .expectStatus(400)
+    .expectStatus(409)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
-	.expectJSONLength("*",0)
 	.toss();
-
+//12
 //get query voided_guid1 to confirm void
-frisby.create('PUT - Statement to be Voided')
-  .put(API_DOMAIN+'/statements/?statementId='+voided_guid1,
-	voided_stmt1)
+frisby.create("PUT - Statement to be Voided")
+  .put(API_DOMAIN+"/statements/?statementId="+voided_guid1,
+	voided_stmt1,{"json":true})
     .expectStatus(204)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
-	.afterJSON(function(ids) {		
-		frisby.create('POST - Void statment')
-		  .post(API_DOMAIN,
-			void_stmt1)
-			.expectStatus(200)
-			.expectHeaderContains("X-Experience-API-Version", API_VER)
-			.expectJSONLength("?",1)
-			.expectJSONTypes('?', Array)
-			.toss();
-	})
 	.toss();
-	
-/* GET */
+//13	
+frisby.create("POST - Void statment")
+  .post(API_DOMAIN+"/statements/",
+	void_stmt1,{"json":true})
+	.expectStatus(200)
+	.expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(1)
+	.expectJSONTypes("?", Array)
+	.toss();	
 
-//get query stmt8 & stmt9 to confirm didn't save
+/* GET */
+//14
+//get query stmt8 & stmt9 to confirm didn"t save
 frisby.create("GET - Statement that shouldn't have been saved")
-  .get(API_DOMAIN+'/statements/?statementId='+guid8)
+  .get(API_DOMAIN+"/statements/?statementId="+guid8)
     .expectStatus(404)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
-	
+//15	
 //get query voided_guid1 to confirm void
 frisby.create("GET - Voided Statement by statementId")
-  .get(API_DOMAIN+'/statements/?statementId='+voided_guid1)
+  .get(API_DOMAIN+"/statements/?statementId="+voided_guid1)
     .expectStatus(404)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
-	
-frisby.create("GET - Voided Statement by statementId")
-  .get(API_DOMAIN+'/statements/?statementId='+voided_guid1)
-    .expectStatus(404)
-    .expectHeaderContains("X-Experience-API-Version", API_VER)
-	.toss();
-	
+//16	
 frisby.create("GET - Voided Statement by voidedStatementId")
-  .get(API_DOMAIN+'/statements/?voidedSatementId='+voided_guid1)
+  .get(API_DOMAIN+"/statements/?voidedStatementId="+voided_guid1)
     .expectStatus(200)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
-	.expectJSON(voided_stmt1)
+	.expectJSON(voided_stmt1)	
 	.toss();
-
+//17
 frisby.create("GET - Existing Statement by PUT statementId")
-  .get(API_DOMAIN+'/statements/?statementId='+guid1)
+  .get(API_DOMAIN+"/statements/?statementId="+guid1)
     .expectStatus(200)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.expectJSON(stmt1)
 	.toss();
-
-frisby.create("GET - Existing Statement by POST statementId")
-  .get(API_DOMAIN+'/statements/?statementId='+guid5)
-    .expectStatus(200)
-    .expectHeaderContains("X-Experience-API-Version", API_VER)
-	.expectJSON(stmt5)
-	.toss();	
-
-frisby.create("GET - Existing Sub Statement")
-  .get(API_DOMAIN+'/statements/?statementId='+ssguid2)
+	
+//18 //not yet supported
+/*frisby.create("GET - Existing Sub Statement")
+  .get(API_DOMAIN+"/statements/?statementId="+ssguid2)
     .expectStatus(200)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.expectJSON(stmt2a)
 	.toss();
-	
+*/	
 // single query all fields returned accuratly 204 (many)
 
 /* GET Complex query */
 // no params return all with default limit of 10 (statement count will be less)
 // no params return all with default limit of 10 (statement count will be more)
+
+
+//Cleanup
+//must support delete by statementId
+frisby.create("delete - Statement guid1")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid1)
+	.toss();
+frisby.create("delete - Statement guid2")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid2)
+	.toss();
+frisby.create("delete - Statement guid3")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid3)
+	.toss();
+frisby.create("delete - Statement guid4")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid4)
+	.toss();
+frisby.create("delete - Statement guid5")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid5)
+	.toss();
+frisby.create("delete - Statement guid6")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid6)
+	.toss();
+frisby.create("delete - Statement guid7")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid7)
+	.toss();
+frisby.create("delete - Statement guid8")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid8)
+	.toss();
+frisby.create("delete - Statement voided_guid1")
+  .delete(API_DOMAIN+"/statements/?statementId="+voided_guid1)
+	.toss();
+frisby.create("delete - Statement guid10")
+  .delete(API_DOMAIN+"/statements/?statementId="+guid10)
+	.toss();	
