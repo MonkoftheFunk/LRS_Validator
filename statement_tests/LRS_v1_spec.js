@@ -690,6 +690,11 @@ frisby.create("POST - Valid statement and return id in array")
 	.expectJSONTypes("?", Array)
 	.afterJSON(function(ids) {
 		guid4 = ids[0];
+		
+		//cleanup
+		frisby.create("delete - Statement guid4")
+			.delete(API_DOMAIN+"/statements/?statementId="+guid4)
+			.toss();
 	})
 	.toss();
 //8
@@ -701,17 +706,29 @@ frisby.create("POST - Valid multiple statements return id in array")
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.expectJSONLength(3)
 	.expectJSONTypes("?", Array)
-	.afterJSON(function(ids) {	
+	.afterJSON(function(ids) {		
 		guid5 = ids[0];
 		guid6 = ids[1];
 		guid7 = ids[2];
-		
+				
 	//19
 	frisby.create("GET - Existing Statement by POST statementId")
-	  .get(API_DOMAIN+"/statements/?statementId="+guid5)
+	    .get(API_DOMAIN+"/statements/?statementId="+guid5)
 		.expectStatus(200)
 		.expectHeaderContains("X-Experience-API-Version", API_VER)
 		.expectJSON(stmt5)
+		.afterJSON(function(result){
+			//cleanup
+			frisby.create("delete - Statement guid5")
+			  .delete(API_DOMAIN+"/statements/?statementId="+guid5)
+				.toss();
+			frisby.create("delete - Statement guid6")
+			  .delete(API_DOMAIN+"/statements/?statementId="+guid6)
+				.toss();
+			frisby.create("delete - Statement guid7")
+			  .delete(API_DOMAIN+"/statements/?statementId="+guid7)
+				.toss();
+		})
 		.toss();
 	})
 	.toss();	
@@ -800,9 +817,24 @@ frisby.create("GET - Existing Statement by PUT statementId")
 // single query all fields returned accuratly 204 (many)
 
 /* GET Complex query */
+
 // no params return all with default limit of 10 (statement count will be less)
 // no params return all with default limit of 10 (statement count will be more)
-
+// Since
+// Until
+// Since and Until
+// Verb
+// Agent as actor
+// Agent as group member
+// Registration
+// Activity
+// Sort Ascending
+// format?
+// Attachment?
+// Find items with refrence to
+// Find items with refrence to with same since/until
+// Find iems with refrence to refrences to items
+// Combo of Verb, Actor, Since
 
 //Cleanup
 //must support delete by statementId
@@ -814,18 +846,6 @@ frisby.create("delete - Statement guid2")
 	.toss();
 frisby.create("delete - Statement guid3")
   .delete(API_DOMAIN+"/statements/?statementId="+guid3)
-	.toss();
-frisby.create("delete - Statement guid4")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid4)
-	.toss();
-frisby.create("delete - Statement guid5")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid5)
-	.toss();
-frisby.create("delete - Statement guid6")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid6)
-	.toss();
-frisby.create("delete - Statement guid7")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid7)
 	.toss();
 frisby.create("delete - Statement guid8")
   .delete(API_DOMAIN+"/statements/?statementId="+guid8)
