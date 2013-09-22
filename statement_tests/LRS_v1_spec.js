@@ -7,7 +7,9 @@
 var frisby = require('../frisby/lib/frisby');
 var API_DOMAIN = (process.env.DOMAIN)?process.env.DOMAIN:"http://localhost:8080";
 var API_VER = "1.0"
+var CLEAN = (process.env.CLEAN!="false")
 
+console.log("Clean: "+CLEAN+" - API Domain: "+API_DOMAIN);
 //todo create something queryiable all statements share for quick removal after test
 //todo should I just void or implement delete
 
@@ -304,7 +306,7 @@ var stmt3 = {
 	},
 	"actor": {
 		"objectType": "Agent",
-		"mbox": "mailto:s@s.com"
+		"mbox": "mailto:t@t.com"
 	}
 };
 
@@ -692,9 +694,11 @@ frisby.create("POST - Valid statement and return id in array")
 		guid4 = ids[0];
 		
 		//cleanup
-		frisby.create("delete - Statement guid4")
-			.delete(API_DOMAIN+"/statements/?statementId="+guid4)
-			.toss();
+		if(CLEAN){
+			frisby.create("delete - Statement guid4")
+				.delete(API_DOMAIN+"/statements/?statementId="+guid4)
+				.toss();
+		}
 	})
 	.toss();
 //8
@@ -719,15 +723,17 @@ frisby.create("POST - Valid multiple statements return id in array")
 		.expectJSON(stmt5)
 		.afterJSON(function(result){
 			//cleanup
-			frisby.create("delete - Statement guid5")
-			  .delete(API_DOMAIN+"/statements/?statementId="+guid5)
-				.toss();
-			frisby.create("delete - Statement guid6")
-			  .delete(API_DOMAIN+"/statements/?statementId="+guid6)
-				.toss();
-			frisby.create("delete - Statement guid7")
-			  .delete(API_DOMAIN+"/statements/?statementId="+guid7)
-				.toss();
+			if(CLEAN){
+				frisby.create("delete - Statement guid5")
+				  .delete(API_DOMAIN+"/statements/?statementId="+guid5)
+					.toss();
+				frisby.create("delete - Statement guid6")
+				  .delete(API_DOMAIN+"/statements/?statementId="+guid6)
+					.toss();
+				frisby.create("delete - Statement guid7")
+				  .delete(API_DOMAIN+"/statements/?statementId="+guid7)
+					.toss();
+			}
 		})
 		.toss();
 	})
@@ -779,11 +785,26 @@ frisby.create("POST - Void statment")
 /* GET */
 //14
 //get query stmt8 & stmt9 to confirm didn"t save
-frisby.create("GET - Statement that shouldn't have been saved")
+frisby.create("GET - Statement that shouldn't have been saved guid8")
   .get(API_DOMAIN+"/statements/?statementId="+guid8)
     .expectStatus(404)
     .expectHeaderContains("X-Experience-API-Version", API_VER)
 	.toss();
+	
+frisby.create("GET - Statement that shouldn't have been saved guid1")
+  .get(API_DOMAIN+"/statements/?statementId="+guid1)
+    .expectStatus(200)
+	.expectJSON(stmt1)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+	
+frisby.create("GET - Statement that shouldn't have been saved guid3")
+  .get(API_DOMAIN+"/statements/?statementId="+guid3)
+    .expectStatus(200)
+	.expectJSON(stmt3)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+	
 //15	
 //get query voided_guid1 to confirm void
 frisby.create("GET - Voided Statement by statementId")
@@ -823,7 +844,20 @@ frisby.create("GET - Existing Statement by PUT statementId")
 // Since
 // Until
 // Since and Until
+
 // Verb
+frisby.create("Get - Valid Verb in statements")
+  .get(API_DOMAIN+"/statements/?verb=http://adlnet.gov/expapi/verbs/created")
+    .expectStatus(200)
+    //.expectHeaderContains("X-Experience-API-Version", API_VER)	
+	.expectJSONLength(6)
+	.toss();
+	
+// No Verb
+frisby.create("Get - Verb not found")
+  .get(API_DOMAIN+"/statements/?verb=http://adlnet.gov/expapi/verbs/nothing")
+    .expectStatus(404)
+	.toss();	
 // Agent as actor
 // Agent as group member
 // Registration
@@ -838,21 +872,23 @@ frisby.create("GET - Existing Statement by PUT statementId")
 
 //Cleanup
 //must support delete by statementId
-frisby.create("delete - Statement guid1")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid1)
-	.toss();
-frisby.create("delete - Statement guid2")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid2)
-	.toss();
-frisby.create("delete - Statement guid3")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid3)
-	.toss();
-frisby.create("delete - Statement guid8")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid8)
-	.toss();
-frisby.create("delete - Statement voided_guid1")
-  .delete(API_DOMAIN+"/statements/?statementId="+voided_guid1)
-	.toss();
-frisby.create("delete - Statement guid10")
-  .delete(API_DOMAIN+"/statements/?statementId="+guid10)
-	.toss();	
+if(CLEAN){
+	frisby.create("delete - Statement guid1")
+	  .delete(API_DOMAIN+"/statements/?statementId="+guid1)
+		.toss();
+	frisby.create("delete - Statement guid2")
+	  .delete(API_DOMAIN+"/statements/?statementId="+guid2)
+		.toss();
+	frisby.create("delete - Statement guid3")
+	  .delete(API_DOMAIN+"/statements/?statementId="+guid3)
+		.toss();
+	frisby.create("delete - Statement guid8")
+	  .delete(API_DOMAIN+"/statements/?statementId="+guid8)
+		.toss();
+	frisby.create("delete - Statement voided_guid1")
+	  .delete(API_DOMAIN+"/statements/?statementId="+voided_guid1)
+		.toss();
+	frisby.create("delete - Statement guid10")
+	  .delete(API_DOMAIN+"/statements/?statementId="+guid10)
+		.toss();
+}

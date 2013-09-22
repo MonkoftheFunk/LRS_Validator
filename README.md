@@ -26,6 +26,7 @@ Suggested file naming is to append the filename with `_spec`, like `mytests_spec
 
     cd your/project
     jasmine-node 
+	--config CLEAN false
 
 ## Overview of tests to perform (so far)
     /* from: https://github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementsTests.py */
