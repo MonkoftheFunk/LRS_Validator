@@ -319,9 +319,30 @@ var stmt4 = {
 		}
 	},
 	"actor": {
-		"objectType": "Agent",
-		"mbox": "mailto:s@s.com"
-	},
+        "name": "Team PB",
+        "mbox": "mailto:teampb@example.com",
+        "member": [
+            {
+                "name": "Andrew Downes",
+                "account": {
+                    "homePage": "http://www.example.com",
+                    "name": "13936749"
+                },
+                "objectType": "Agent"
+            },
+            {
+                "name": "Toby Nichols",
+                "openid": "http://toby.openid.example.org/",
+                "objectType": "Agent"
+            },
+            {
+                "name": "Ena Hills",
+                "mbox_sha1sum": "esydnag7fhxkquopagrr4aiputa=",
+                "objectType": "Agent"
+            }
+        ],
+        "objectType": "Group"
+    },
 	"object": {
 		"objectType": "Activity",
 		"id": "act:foogie",
@@ -849,7 +870,7 @@ frisby.create("GET - Existing Statement by PUT statementId")
 frisby.create("Get - Valid Verb in statements")
   .get(API_DOMAIN+"/statements/?verb=http://adlnet.gov/expapi/verbs/created")
     .expectStatus(200)
-    //.expectHeaderContains("X-Experience-API-Version", API_VER)	
+    .expectHeaderContains("X-Experience-API-Version", API_VER)	
 	.expectJSONLength(6)
 	.toss();
 	
@@ -857,10 +878,49 @@ frisby.create("Get - Valid Verb in statements")
 frisby.create("Get - Verb not found")
   .get(API_DOMAIN+"/statements/?verb=http://adlnet.gov/expapi/verbs/nothing")
     .expectStatus(404)
-	.toss();	
+	.toss();
+	
 // Agent as actor
+var actor ='{"objectType": "Agent", "name": "Lou Wolford", "account": { "homePage": "http://example.com", "name": "uniqueName"}}';
+frisby.create("Get - Agent as actor")
+  .get(API_DOMAIN+"/statements/?agent="+actor)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)	
+	.expectJSONLength(1)
+	.toss();
+
+// No Actor	
+var actor ='{"objectType": "Agent", "name": "Tobias Contreras", "account": { "homePage": "http://example.com", "name": "uniqueName"}}';
+frisby.create("Get - Agent not found")
+  .get(API_DOMAIN+"/statements/?agent="+actor)
+    .expectStatus(404)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)	
+	.toss();
+	
 // Agent as group member
+var actor ='{"name": "Andrew Downes","account": {"homePage": "http://www.example.com","name": "13936749"},"objectType": "Agent"}';
+frisby.create("Get - Agent as group member")
+  .get(API_DOMAIN+"/statements/?agent="+actor)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(1)
+	.toss();
+
+// related_agents - object.actor
+var actor ='{"objectType": "Agent","name": "jon","mbox": "mailto:jon@jon.com"}';
+frisby.create("Get - related_agents as object.actor")
+  .get(API_DOMAIN+"/statements/?agent="+actor+"&related_agents=true")
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(2)
+	.toss();
+
+// related_agents - context.instructor
+// related_agents - object.context.instructor
+// related_agents - object.context.team
+
 // Registration
+
 // Activity
 // Sort Ascending
 // format?

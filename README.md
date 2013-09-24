@@ -24,9 +24,12 @@ Suggested file naming is to append the filename with `_spec`, like `mytests_spec
 
 ### Run it from the CLI
 
-    cd your/project
-    jasmine-node 
+    cd github.com/LRS_Validator
+    jasmine-node statement_tests
+	
+	optional
 	--config CLEAN false
+	--config DOMAIN http://localhost:8080
 
 ## Overview of tests to perform (so far)
     /* from: https://github.com/adlnet/ADL_LRS/blob/master/lrs/tests/StatementsTests.py */
