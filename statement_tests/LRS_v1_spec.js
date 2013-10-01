@@ -103,12 +103,12 @@ var stmt1 = {
 	"context": {
 		"registration": "6",
 		"contextActivities": {
-			"other": {
-				"id": "http://example.adlnet.gov/tincan/example/test"
-			},
-			"grouping": {
-				"id": "http://groupingID"
-			}
+			"other": [
+				{"id": "http://example.adlnet.gov/tincan/example/test"}
+			],
+			"grouping": [
+				{"id": "http://groupingID"}
+			]
 		},
 		"revision": "Spelling error in choices.",
 		"platform": "Platform is web browser.",
@@ -217,10 +217,38 @@ var stmt2a = {
 		"context": {
 			"registration": "10",
 			"contextActivities": {
-				"other": {
-					"id": "http://example.adlnet.gov/tincan/example/test/nest"
-				}
-			},
+            "parent": [
+                {
+                    "id": "http://www.example.com/meetings/series/267",
+                    "objectType": "Activity"
+                }
+            ],
+            "category": [
+                {
+                    "id": "http://www.example.com/meetings/categories/teammeeting",
+                    "objectType": "Activity",
+                    "definition": {
+                        "name": {
+                            "en": "team meeting"
+                        },
+                        "description": {
+                            "en": "A category of meeting used for regular team meetings."
+                        },
+                        "type": "http://example.com/expapi/activities/meetingcategory"
+                    }
+                }
+            ],
+            "other": [
+                {
+                    "id": "http://www.example.com/meetings/occurances/34257",
+                    "objectType": "Activity"
+                },
+                {
+                    "id": "http://www.example.com/meetings/occurances/3425567",
+                    "objectType": "Activity"
+                }
+            ]
+        },
 			"revision": "Spelling error in target.",
 			"platform": "Ipad.",
 			"language": "en-US",
@@ -271,9 +299,9 @@ var stmt2 = {
 	"context": {
 		"registration": "12",
 		"contextActivities": {
-			"other": {
-				"id": "http://example.adlnet.gov/tincan/example/test"
-			}
+			"other": [ {
+				"id": "http:adlnet.gov/my/Activity/URL"
+			}]
 		},
 		"revision": "Spelling error in choices.",
 		"platform": "Platform is web browser.",
@@ -307,6 +335,42 @@ var stmt3 = {
 	"actor": {
 		"objectType": "Agent",
 		"mbox": "mailto:t@t.com"
+	},
+	"context": {
+			"registration": "10",
+			"contextActivities": {
+            "parent": [
+                {
+                    "id": "http://www.example.com/meetings/series/267",
+                    "objectType": "Activity"
+                }
+            ],
+            "category": [
+                {
+                    "id": "http://www.example.com/meetings/categories/teammeeting",
+                    "objectType": "Activity",
+                    "definition": {
+                        "name": {
+                            "en": "team meeting"
+                        },
+                        "description": {
+                            "en": "A category of meeting used for regular team meetings."
+                        },
+                        "type": "http://example.com/expapi/activities/meetingcategory"
+                    }
+                }
+            ],
+            "other": [
+                {
+                    "id": "http://www.example.com/meetings/occurances/34257",
+                    "objectType": "Activity"
+                },
+                {
+                    "id": "http://www.example.com/meetings/occurances/3425567",
+                    "objectType": "Activity"
+                }
+            ]
+        }
 	}
 };
 
@@ -381,9 +445,9 @@ var stmt4 = {
 	"context": {
 		"registration": "1",
 		"contextActivities": {
-			"other": {
+			"other": [{
 				"id": "act:NewActivityID2"
-			}
+			}]
 		},
 		"revision": "food",
 		"platform": "bard",
@@ -444,9 +508,9 @@ var stmt5 = {
 	"context": {
 		"registration": "2",
 		"contextActivities": {
-			"other": {
+			"other": [{
 				"id": "act:NewActivityID22"
-			}
+			}]
 		},
 		"revision": "food",
 		"platform": "bard",
@@ -505,9 +569,9 @@ var stmt6 = {
 	"context": {
 		"registration": "3",
 		"contextActivities": {
-			"other": {
+			"other": [{
 				"id": "act:NewActivityID22"
-			}
+			}]
 		},
 		"revision": "food",
 		"platform": "bard",
@@ -658,6 +722,79 @@ var voided_stmt1 = {
         }
     }
 };
+
+var guid11="11";
+var stmt11 = {
+	"object": {
+		"objectType": "Agent",
+		"name": "jon",
+		"mbox": "mailto:jon@jon.com"
+	},
+	"verb": {
+		"id": "http://adlnet.gov/expapi/verbs/created",
+		"display": {
+			"en-US": "created"
+		}
+	},
+	"actor": {
+		"objectType": "Agent",
+		"mbox": "mailto:s@s.com"
+	},
+	"context": {
+		"registration": "11",
+		"contextActivities": {
+			"other": 
+				{"id": "http://example.adlnet.gov/tincan/example/test"}			
+		},
+		"revision": "Spelling error in choices.",
+		"platform": "Platform is web browser.",
+		"language": "en-US",
+		"statement": {
+			"objectType": "StatementRef",
+			"id": "7"
+		},
+		"extensions": {
+			"ext:contextKey1": "contextVal1",
+			"ext:contextKey2": "contextVal2"
+		}
+	}
+};
+
+var stmt11a = {
+	"object": {
+		"objectType": "Agent",
+		"name": "jon",
+		"mbox": "mailto:jon@jon.com"
+	},
+	"verb": {
+		"id": "http://adlnet.gov/expapi/verbs/created",
+		"display": {
+			"en-US": "created"
+		}
+	},
+	"actor": {
+		"objectType": "Agent",
+		"mbox": "mailto:s@s.com"
+	},
+	"context": {
+		"registration": "11",
+		"contextActivities": {
+			"other": 
+				[{"id": "http://example.adlnet.gov/tincan/example/test"}]			
+		},
+		"revision": "Spelling error in choices.",
+		"platform": "Platform is web browser.",
+		"language": "en-US",
+		"statement": {
+			"objectType": "StatementRef",
+			"id": "7"
+		},
+		"extensions": {
+			"ext:contextKey1": "contextVal1",
+			"ext:contextKey2": "contextVal2"
+		}
+	}
+}
 
 /* PUT */
 //1
@@ -916,12 +1053,80 @@ frisby.create("Get - related_agents as object.actor")
 	.toss();
 
 // related_agents - context.instructor
+var actor ='{"objectType": "Agent","name": "bob","mbox": "mailto:bob@bob.com"}';
+frisby.create("Get - related_agents as context.instructor")
+  .get(API_DOMAIN+"/statements/?agent="+actor+"&related_agents=true")
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(1)
+	.toss();
+	
 // related_agents - object.context.instructor
 // related_agents - object.context.team
 
 // Registration
-
+var registration ='6';
+frisby.create("Get - context.registration")
+  .get(API_DOMAIN+"/statements/?registration="+registration)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(1)
+	.toss();
+	
 // Activity
+//object.id  http:adlnet.gov/my/Activity/URL
+var activity ='http:adlnet.gov/my/Activity/URL';
+frisby.create("Get - activity object.id")
+  .get(API_DOMAIN+"/statements/?activity="+activity)
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(1)
+	.toss();
+	
+//related_activities object.id  http:adlnet.gov/my/Activity/URL
+var activity ='http:adlnet.gov/my/Activity/URL';
+frisby.create("Get - activity object.id related_activities")
+  .get(API_DOMAIN+"/statements/?activity="+activity+'&related_activities=true')
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(2)
+	.toss();
+	
+//related_activities context.contextActivities http://groupingID
+var activity ='http://groupingID';
+frisby.create("Get - activity context.contextActivities related_activities")
+  .get(API_DOMAIN+"/statements/?activity="+activity+'&related_activities=true')
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(1)
+	.toss();
+	
+//related_activities context.contextActivities other in array and substatement
+var activity ='http://www.example.com/meetings/occurances/3425567';
+frisby.create("Get - activity context.contextActivities related_activities in array")
+  .get(API_DOMAIN+"/statements/?activity="+activity+'&related_activities=true')
+    .expectStatus(200)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.expectJSONLength(2)
+	.toss();
+	
+//related_activities object.context.contextActivities
+
+//test the conversion from a single object in contextActivities "Other" to array
+frisby.create("PUT - Valid Statement w/ contextActivities 'Other' as single object")
+  .put(API_DOMAIN+"/statements/?statementId="+guid11,
+	stmt11,{"json":true})
+    .expectStatus(204)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+
+frisby.create("GET - Statement that has object converted to array guid11")
+  .get(API_DOMAIN+"/statements/?statementId="+guid11)
+    .expectStatus(200)
+	.expectJSON(stmt11a)
+    .expectHeaderContains("X-Experience-API-Version", API_VER)
+	.toss();
+
 // Sort Ascending
 // format?
 // Attachment?
@@ -950,5 +1155,8 @@ if(CLEAN){
 		.toss();
 	frisby.create("delete - Statement guid10")
 	  .delete(API_DOMAIN+"/statements/?statementId="+guid10)
+		.toss();
+	frisby.create("delete - Statement guid11")
+	  .delete(API_DOMAIN+"/statements/?statementId="+guid11)
 		.toss();
 }
