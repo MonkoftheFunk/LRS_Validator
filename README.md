@@ -1,3 +1,5 @@
+** Taking a break from project for a bit 10/18/2013 **
+
 Tin Can/xAPI LRS validator with REST test cases from ADL's LRS, useful for those who plan on building their own LRS 
 
 Uses [Frisby.js](http://frisbyjs.com/)
