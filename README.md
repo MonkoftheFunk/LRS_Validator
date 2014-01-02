@@ -87,5 +87,5 @@ Suggested file naming is to append the filename with `_spec`, like `mytests_spec
     // Re-Run above with request type in query string
     // Auth tests with permissions of POST/PUT/GET
     
-    [![Analytics](https://ga-beacon.appspot.com/UA-46798790-1/LRS_Validator/README)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-46798790-1/LRS_Validator/README)](https://github.com/igrigorik/ga-beacon)
 
